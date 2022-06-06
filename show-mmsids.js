@@ -2,6 +2,7 @@
 "use strict";
 "use strict";
 
+/*  Make sure `showMmsid` is added to app declaration, as below   */
   var app = angular.module('viewCustom', ['angularLoad', 'showMmsid']);
 
 
