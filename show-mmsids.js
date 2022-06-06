@@ -5,6 +5,7 @@
   var app = angular.module('viewCustom', ['angularLoad', 'showMmsid']);
 
 
+/**** begin code to be copied to custom.js ***/
   app.component('prmRecordCollectionPathsAfter', {
     template: '<show-mmsid></show-mmsid>'
   });
@@ -73,12 +74,12 @@
 
   /* Custom options for labels, and institution-specific trailing 4-digits for IZ MMS ID  */
   app.constant('showMmsidOptions', {
-    "izLabel": "MMS ID (IZ)",
-    "nzLabel": "MMS ID (NZ)",
+    "izLabel": "MMS ID (IZ)", /* Field value for Institution Zone MMS ID */
+    "nzLabel": "MMS ID (NZ)", /* Field value for Network Zone MMS ID */
     "izSuffix": "1844" /*institution-specific trailing 4 digits*/
   });
 
-
+/**** end code to be copied to custom.js ***/
 
 
 

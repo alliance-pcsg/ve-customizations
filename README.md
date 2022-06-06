@@ -9,3 +9,17 @@ to prevent the field from being destroyed when a patron uses the backspace. See 
 
 ## [Move Focus to Action on Hover](https://github.com/alliance-pcsg/ve-customizations/blob/main/focus-action-on-hover.js)
 The intended behavior of Primo VE is to retain focus on the first action in a list only, even when users mouse over other actions. This customization moves focus to other actions on hover.
+
+## [Show MMS IDs](https://github.com/alliance-pcsg/ve-customizations/blob/main/show-mmsids.js)
+This customization will display Institution Zone and Network Zone MMS IDs, if available, at the end of the metadata list in a full display record. In addition to inserting the code in and institution's custom.js file and adding `showMmsid` to `var app=angular.module...`, implementers should add custom values to the `showMmsidOptions` section:
+
+```
+/* Custom options for labels, and institution-specific trailing 4-digits for IZ MMS ID  */
+app.constant('showMmsidOptions', {
+  "izLabel": "MMS ID (IZ)", /* Field value for Institution Zone MMS ID */
+  "nzLabel": "MMS ID (NZ)", /* Field value for Network Zone MMS ID */
+  "izSuffix": "1844" /*institution-specific trailing 4 digits*/
+});
+```
+
+Implementers may want to consider hiding the current MMS ID field in Alma, under `View Configuration > Edit Full Display Details`.
