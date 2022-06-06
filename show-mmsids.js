@@ -26,32 +26,24 @@
             $scope.nzLabel=showMmsidOptions.nzLabel;
 
             var item=$scope.$parent.$parent.$ctrl.item;
-            var izMmsid=item.pnx.control.sourcerecordid[0];
-            var nzMmsid=item.pnx.control.originalsourceid[0];
-
             var srcid=item.pnx.control.sourcerecordid[0];
-            var srcSuffix=srcid.substring(srcid.length - 4)
             var origsrcid=item.pnx.control.originalsourceid[0];
 
-            /* case - both are numeric, IZ & NZ exist */
-            if(isNaN(srcid)==false && isNaN(origsrcid)==false){
-              $scope.izMmsid=srcid;
-              $scope.nzMmsid=origsrcid;
-              $scope.izShow=true;
-              $scope.nzShow=true;
-            }
-            /* case only srcid is numeric, must determine whether it's nz or iz */
-            /* First, look for match in trailing 4 digits for IZ */
-            if(isNaN(srcid)==false && isNaN(origsrcid)==true && srcSuffix==izSuffix){
-              $scope.izMmsid=srcid;
-              $scope.izShow=true;
-              $scope.nzShow=false;
-            }
-            /* If no match, then assumed to be NZ*/
-            if(isNaN(srcid)==false && isNaN(origsrcid)==true && srcSuffix!=izSuffix){
-              $scope.nzMmsid=srcid;
-              $scope.izShow=false;
-              $scope.nzShow=true;
+
+            evalString(srcid);
+            evalString(origsrcid);
+
+            function evalString(string){
+              if(string.substring(0,2)=="99"){ //1st two digitalinitiatives
+                if(string.substring(string.length - 4)==izSuffix){ //match for IZ
+                  $scope.izMmsid=string;
+                  $scope.izShow=true;
+                }
+                else{
+                  $scope.nzMmsid=string;
+                  $scope.nzShow=true;
+                }
+              }
             }
 
           };
@@ -73,6 +65,7 @@
   </div>`
   });
 
+  
   /* Custom options for labels, and institution-specific trailing 4-digits for IZ MMS ID  */
   app.constant('showMmsidOptions', {
     "izLabel": "MMS ID (IZ)", /* Field value for Institution Zone MMS ID */
