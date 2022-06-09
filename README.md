@@ -18,8 +18,9 @@ This customization will display Institution Zone and Network Zone MMS IDs, if av
 app.constant('showMmsidOptions', {
   "izLabel": "MMS ID (IZ)", /* Field value for Institution Zone MMS ID */
   "nzLabel": "MMS ID (NZ)", /* Field value for Network Zone MMS ID */
-  "izSuffix": "1844" /*institution-specific trailing 4 digits*/
+  "izSuffix": "xxxx" /*institution-specific trailing 4 digits*/
 });
 ```
+Please see [this document](https://docs.google.com/spreadsheets/d/1Wyab3UPyUm34Ak9NQHg1sZWwkTNeqWCJ/edit?usp=sharing&ouid=115321540829379572112&rtpof=true&sd=true) to get your institution's 4-digit 'izSuffix' for editing the izSuffix value above.
 
 Implementers may want to consider hiding the current MMS ID field in Alma, under `View Configuration > Edit Full Display Details`.
