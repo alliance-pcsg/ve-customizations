@@ -7,7 +7,7 @@
 
 
 /**** begin code to be copied to custom.js ***/
-  app.component('prmRecordCollectionPathsAfter', {
+  app.component('prmServiceDetailsAfter', {
     template: '<show-mmsid></show-mmsid>'
   });
 
