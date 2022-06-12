@@ -14,11 +14,12 @@ The intended behavior of Primo VE is to retain focus on the first action in a li
 This customization will display Institution Zone and Network Zone MMS IDs, if available, at the end of the metadata list in a full display record. In addition to inserting the code in and institution's custom.js file and adding `showMmsid` to `var app=angular.module...`, implementers should add custom values to the `showMmsidOptions` section:
 
 ```
-/* Custom options for labels, and institution-specific trailing 4-digits for IZ MMS ID  */
+/* Custom options for labels, institution-specific trailing 4-digits for IZ MMS ID, and institution code  */
 app.constant('showMmsidOptions', {
   "izLabel": "MMS ID (IZ)", /* Field value for Institution Zone MMS ID */
   "nzLabel": "MMS ID (NZ)", /* Field value for Network Zone MMS ID */
-  "izSuffix": "xxxx" /*institution-specific trailing 4 digits*/
+  "izSuffix": "xxxx", /* institution-specific trailing 4 digits*/
+  "instCode":"01ALLIANCE_XXX" /* institution code, e.g. 01ALLIANCE_LCC*/
 });
 ```
 Please see [this document](https://docs.google.com/spreadsheets/d/1Wyab3UPyUm34Ak9NQHg1sZWwkTNeqWCJ/edit?usp=sharing&ouid=115321540829379572112&rtpof=true&sd=true) to get your institution's 4-digit 'izSuffix' for editing the izSuffix value above.
