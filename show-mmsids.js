@@ -94,7 +94,7 @@
   app.constant('showMmsidOptions', {
     "izLabel": "MMS ID (IZ)", /* Field value for Institution Zone MMS ID */
     "nzLabel": "MMS ID (NZ)", /* Field value for Network Zone MMS ID */
-    "izSuffix": "xxxx" /*institution-specific trailing 4 digits*/
+    "izSuffix": "xxxx", /*institution-specific trailing 4 digits*/
     "instCode":"01ALLIANCE_XXX" /* institution code, e.g. 01ALLIANCE_LCC*/
   });
 
