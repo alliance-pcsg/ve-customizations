@@ -41,6 +41,16 @@
               sruCall(srcid);
 
             }
+
+            /* src is not an mmsid */
+            if(srcid.substring(0,2)!="99"){
+              $scope.izShow=false;
+              $scope.nzShow=false;
+              $scope.nzClass="ng-hide";
+              $scope.izClass="ng-hide";
+
+            }
+          
             /*  make SRU call w/iz mmsid to check for nz mms id*/
             function sruCall(string){
               var instCode=showMmsidOptions.instCode;
