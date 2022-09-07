@@ -25,3 +25,7 @@ app.constant('showMmsidOptions', {
 Please see [this document](https://docs.google.com/spreadsheets/d/1Wyab3UPyUm34Ak9NQHg1sZWwkTNeqWCJ/edit?usp=sharing&ouid=115321540829379572112&rtpof=true&sd=true) to get your institution's 4-digit 'izSuffix' for editing the izSuffix value above.
 
 Implementers may want to consider hiding the current MMS ID field in Alma, under `View Configuration > Edit Full Display Details`.
+
+
+## [Same Tab Menu Links](https://github.com/alliance-pcsg/ve-customizations/blob/main/same-tab-menu-links.js)
+By default, menu links in the top nav bar to non-primo resources open in a new browser tab. This customization overrides that behavior, and opens these links in the same browser tab.
