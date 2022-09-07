@@ -18,7 +18,7 @@ app.component('prmTopNavBarLinksAfter', {
             /*Must wait for menu items to appear*/
             var elCheck = setInterval(updateLinks, 1000);
             function updateLinks() {
-              //console.log("anythihng")
+              /* Checks for menu links, sets all target attributes to '_self'*/
               if( $document[0].querySelectorAll("div.top-nav-bar-links > div").length>0 ){
                 var menuItems=$document[0].querySelectorAll("div.top-nav-bar-links > div")
                 for (var i = 0; i < menuItems.length; i++) {
@@ -27,7 +27,6 @@ app.component('prmTopNavBarLinksAfter', {
                   anchor.target="_self"
                 }
                 clearInterval(elCheck);
-                //return;
               }
 
             }
