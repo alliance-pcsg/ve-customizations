@@ -1,5 +1,6 @@
 // This file demonstrates a custom action that opens a form in mdDialog to submit to a remote server.
 // The demo server-side script report.php prints the received fields.
+// Note that a server-side response must include an Access-Control-Allow-Origin header that allows requests from Primo.
 
 (function(){
 "use strict";
