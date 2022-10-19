@@ -1,0 +1,133 @@
+// This file demonstrates a custom action that opens a form in mdDialog to submit to a remote server.
+// The demo server-side script report.php prints the received fields.
+
+(function(){
+"use strict";
+"use strict";
+
+  var app = angular.module('viewCustom', ['angularLoad', 'customActions', 'myReportProblem']);
+
+  app.component('prmActionListAfter', {template: '<my-report-form></my-report-form'});
+
+  angular
+    .module('myReportProblem', [])
+    .component('myReportForm', {
+      require: {
+        prmActionCtrl: '^prmActionList'
+      },
+      controller: function controller($scope, $http, $mdDialog, customActions) {
+        
+        var _this = this;
+        
+        this.$onInit = function () {
+          
+          // Default form values
+          var pnx = $scope.$parent.$parent.$ctrl.item.pnx;
+          _this.itemTitle = pnx.display.title[0];
+          _this.itemRecord = pnx.control.recordid[0];
+          
+          // Remove action if it exists from a previous record
+          customActions.removeAction({name: 'my_action'}, _this.prmActionCtrl);
+          
+          // Define the custom action
+          _this.my_action = {
+            name: 'my_action',
+            label: 'My Report a Problem',
+            index: 0,
+            icon: {
+              icon: 'ic_error_24px',
+              iconSet: 'alert',
+              type: 'svg'
+            },
+            onToggle: _this.showMyForm()
+          };
+          
+          // Add the custom action
+          customActions.addAction(_this.my_action, _this.prmActionCtrl);
+          
+        }
+        
+        // Show form in mdDialog
+        this.showMyForm = function showMyForm() {
+          return function() {
+            $mdDialog.show({
+              controller: myFormController,
+              clickOutsideToClose: true,
+              escapeToClose: true,
+              template: `<md-dialog aria-label="My Report a Problem" id="myFormDialog">
+                <md-dialog-content>
+                  <md-toolbar>
+                    <div class="md-toolbar-tools">
+                      <h2 class="flex">Report a Problem</h2>
+                      <md-button class="md-icon-button" ng-click="closeMyForm()">
+                        <md-tooltip>Close Window</md-tooltip>
+                        <md-icon md-svg-icon="primo-ui:close" aria-label="Close form window">
+                      </md-button>
+                    </div>
+                  </md-toolbar>
+                  <div id="myFormContent" class="md-dialog-content">
+                    <p class="title">{{itemTitle}}</p>
+                    <p class="record">{{itemRecord}}</p>
+                    <form id="myForm" name="myForm" method="get" ng-submit="submitMyForm()">
+                      <md-input-container class="md-primoExplore-theme">
+                        <label for="email">Email</label>
+                        <input type="text" class="md-input" id="email" name="email" ng-model="email" />
+                      </md-input-container>
+                      <md-input-container class="md-primoExplore-theme">
+                        <label for="note">Problem</label>
+                        <textarea id="note" name="note" ng-model="note"></textarea>
+                      </md-input-container>
+                      <md-input-container class="md-primoExplore-theme">
+                        <input type="submit" class="md-button md-primary md-input" value="Send Report" />
+                      </md-input-container>
+                    </form>
+                  </div>
+                </md-dialog-content>
+              </md-dialog>`,
+            });
+          }
+        }
+        
+        function myFormController($scope, $mdDialog) {
+          
+          // Default form values
+          this.$onInit = function() {
+            $scope.itemTitle = _this.itemTitle;
+            $scope.itemRecord = _this.itemRecord;
+          }
+          
+          $scope.submitMyForm = function() {
+            // Get form values
+            var title = encodeURIComponent($scope.itemTitle);
+            var record = encodeURIComponent($scope.itemRecord);
+            var email = '';
+            if (angular.isDefined($scope.email)) {
+              email = encodeURIComponent($scope.email);
+            }
+            var note = '';
+            if (angular.isDefined($scope.note)) {
+              note = encodeURIComponent($scope.note);
+            }
+            
+            // Submit form and display confirmation
+            $http({
+              method: 'GET',
+              url: 'https://pcsg.orbiscascade.org/demos/report.php?email=' + email + '&title=' + title + '&record=' + record + '&note=' + note
+            })
+            .then(
+              function (response) {
+                console.log(response.data);
+                document.getElementById('myFormContent').innerHTML = '<p>Thank you for your report! A librarian will review your submission and contact you at the email provided.</p>';
+              }
+            );
+          }
+          
+          // Close form
+          $scope.closeMyForm = function () {
+            $mdDialog.hide();
+          };
+        }
+      }
+    });
+
+})();
