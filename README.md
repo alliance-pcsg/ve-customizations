@@ -26,6 +26,8 @@ Please see [this document](https://docs.google.com/spreadsheets/d/1Wyab3UPyUm34A
 
 Implementers may want to consider hiding the current MMS ID field in Alma, under `View Configuration > Edit Full Display Details`.
 
-
 ## [Same Tab Menu Links](https://github.com/alliance-pcsg/ve-customizations/blob/main/same-tab-menu-links.js)
 By default, menu links in the top nav bar to non-primo resources open in a new browser tab. This customization overrides that behavior, and opens these links in the same browser tab.
+
+## [Custom Action Dialog](https://github.com/alliance-pcsg/ve-customizations/blob/main/custom-action-dialog)
+A demonstration of a custom action that opens a form in a modal window for submission to a remote server, rather than opening a link.
