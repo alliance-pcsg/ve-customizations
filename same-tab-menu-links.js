@@ -31,6 +31,20 @@ app.component('prmTopNavBarLinksAfter', {
 
             }
 
+            var linkCheck = setInterval(updateHiddenLinks, 1000);
+            function updateHiddenLinks() {
+              /* Checks for menu links, sets all target attributes to '_self'*/
+              if( $document[0].querySelectorAll("div.custom-links-container > div").length>0 ){
+                var menuItems=$document[0].querySelectorAll("div.custom-links-container > div")
+                for (var i = 0; i < menuItems.length; i++) {
+                  var mItem = menuItems[i];
+                  var anchor = mItem.querySelector("div > a");
+                  anchor.target="_self"
+                }
+                clearInterval(linkCheck);
+              }
+
+            }
           }
     }
   });
