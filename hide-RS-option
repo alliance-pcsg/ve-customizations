@@ -1,0 +1,58 @@
+// This customization hides the Resource Sharing button within the How to Get It section
+// when the source record ID does not end in 1451 (the Alliance Network Zone suffix).
+
+(function () {
+  "use strict";
+  'use strict';
+
+  var app = angular.module('viewCustom', ['angularLoad']);
+
+  // Remove Summit request option for records not owned by the NZ
+  app.component('almaHowovpAfter', {
+    bindings: {
+      parentCtrl: '<'
+    },
+    controller: function ($scope) {
+      var vm = this;
+      this.$onInit = function () {
+        
+        // Check source record ID for 1451 suffix
+        var hide_rs = false;
+        if (!angular.isDefined(vm.parentCtrl.item.pnx.control.sourcerecordid)) {
+          hide_rs = true;
+          console.log('No source record found.');
+        }
+        else {
+          var recordId = vm.parentCtrl.item.pnx.control.sourcerecordid[0];
+          if (recordId.substring(recordId.length-4) != '1451') {
+            hide_rs = true;
+            console.log(recordId + ' is not an NZ record');
+          }
+          else {
+            console.log(recordId + ' is an NZ record');
+          }
+        }
+        
+        // Hide resource sharing option
+        if (hide_rs == true) {
+          var serviceCheck = setInterval(checkServices, 100);
+          function checkServices() {
+            if (angular.isDefined(vm.parentCtrl.services.serviceinfo)) {
+              clearInterval(serviceCheck);
+              var services = vm.parentCtrl.services.serviceinfo;
+              var service;
+              for (var i = 0; i < services.length; i++) {
+                service = services[i];
+                if (service.type == 'AlmaResourceSharing') {
+                  services.splice(i, 1);
+                }
+              }
+            }
+          }
+        }
+        
+      }
+    }
+  });
+  
+})();
