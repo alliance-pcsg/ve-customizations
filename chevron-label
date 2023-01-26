@@ -1,0 +1,37 @@
+// This customization adds a label to the chevron button for advanced searches,
+// controlled by a custom row in the Search Tile Labels code table.
+
+(function () {
+  "use strict";
+  'use strict';
+
+  var app = angular.module('viewCustom', ['angularLoad', 'advancedSearchChevron']);
+  
+  // Note: If you use the prmIconAfter component for other customizations,
+  // add the search-chevron element to the existing template
+  app.component('prmIconAfter', {template: '<search-chevron></search-chevron>'});
+  
+  angular
+    .module('advancedSearchChevron', [])
+    .component('searchChevron', {
+      // Note: Add nui.search-advanced.chevron as a custom row in Search Tile Labels
+      template: '<chevron-label ng-if="$ctrl.showLabel"><span translate="nui.search-advanced.chevron"></span></chevron-label>',
+      controller: function ($scope) {
+        this.$onInit = function() {
+          this.showLabel = false;
+          // Show the label if this icon is chevron-up...
+          if (angular.isDefined($scope.$parent.$parent)) {
+            var icon = $scope.$parent.$parent;
+            if (icon.$ctrl.iconDefinition == 'chevron-up') {
+              // And if the parent's controller contains the advancedSearch object
+              if (angular.isDefined(icon.$parent.$parent.$ctrl)) {
+                var search_ctrl = icon.$parent.$parent.$ctrl;
+                this.showLabel = angular.isDefined(search_ctrl.$scope.advancedSearch);
+              }
+            }
+          }
+        }
+      }
+    });
+  
+})();
