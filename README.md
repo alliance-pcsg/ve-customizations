@@ -31,3 +31,6 @@ By default, menu links in the top nav bar to non-primo resources open in a new b
 
 ## [Custom Action Dialog](https://github.com/alliance-pcsg/ve-customizations/blob/main/custom-action-dialog)
 A demonstration of a custom action that opens a form in a modal window for submission to a remote server, rather than opening a link.
+
+## [Add Label to Advanced Search Chevron](https://github.com/alliance-pcsg/ve-customizations/blob/main/chevron-label.js)
+This customization adds a label to the chevron button for advanced searches, controlled by a custom row in the Search Tile Labels code table.
