@@ -23,10 +23,10 @@
           if (angular.isDefined($scope.$parent.$parent)) {
             var icon = $scope.$parent.$parent;
             if (icon.$ctrl.iconDefinition == 'chevron-up') {
-              // And if the parent's controller contains the advancedSearch object
+              // And if the parent's controller contains the advancedSearch service
               if (angular.isDefined(icon.$parent.$parent.$ctrl)) {
                 var search_ctrl = icon.$parent.$parent.$ctrl;
-                this.showLabel = angular.isDefined(search_ctrl.$scope.advancedSearch);
+                this.showLabel = angular.isDefined(search_ctrl.advancedSearchService);
               }
             }
           }
