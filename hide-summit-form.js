@@ -140,7 +140,6 @@
                         }
                         // If computer file, skip this record
                         if (form_of_material == 'm') {
-                          count--;
                           continue;
                         }
                         // For other forms, get institution
