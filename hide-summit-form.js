@@ -131,10 +131,11 @@
                         var record = recordData[r];
                         // Check 006/00 for form of material
                         var controlfields = record.getElementsByTagName('controlfield');
+                        var form_of_material;
                         for (var c = 0; c < controlfields.length; c++) {
                           var controlfield = controlfields[c];
                           if (controlfield.getAttribute('tag') == '006') {
-                            var form_of_material = controlfield.textContent.substring(0, 1);
+                            form_of_material = controlfield.textContent.substring(0, 1);
                             break;
                           }
                         }
