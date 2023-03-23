@@ -117,34 +117,55 @@
                   var xmlDoc = parser.parseFromString(response.data,"text/xml");
                   var numRecords = xmlDoc.getElementsByTagName('numberOfRecords');
                   if (numRecords.length > 0) {
-                    var records = numRecords[0].textContent;
-                    // If no holdings, hide the form
-                    if (records == '0') {
-                      console.log('No NZ holdings for SRU query ' + query);
+                    var count = parseInt(numRecords[0].textContent);
+                    // If no records, hide the form
+                    if (count == 0) {
+                      console.log('No NZ records for SRU query ' + query);
                       vm.hide_form();
                     }
-                    // If holdings, list institutions
+                    // If records, go through each
                     else {
                       var institutions = [];
-                      var holdings = xmlDoc.getElementsByTagName('datafield');
-                      angular.forEach(holdings, function(datafield) {
-                        if (datafield.getAttribute('tag') == '852') {
-                          var subfields = datafield.getElementsByTagName('subfield');
-                          angular.forEach(subfields, function(subfield) {
-                            if (subfield.getAttribute('code') == 'a') {
-                              if (angular.isDefined(institution_codes[subfield.textContent])) {
-                                institutions.push(institution_codes[subfield.textContent]);
-                              }
+                      var recordData = xmlDoc.getElementsByTagName('recordData');
+                      for (var r = 0; r < recordData.length; r++) {
+                        var record = recordData[r];
+                        // Check 006/00 for form of material
+                        var controlfields = record.getElementsByTagName('controlfield');
+                        for (var c = 0; c < controlfields.length; c++) {
+                          var controlfield = controlfields[c];
+                          if (controlfield.getAttribute('tag') == '006') {
+                            var form_of_material = controlfield.textContent.substring(0, 1);
+                            break;
+                          }
+                        }
+                        // If computer file, skip this record
+                        if (form_of_material == 'm') {
+                          count--;
+                          continue;
+                        }
+                        // For other forms, get institution
+                        else {
+                          var datafields = record.getElementsByTagName('datafield');
+                          angular.forEach(datafields, function(datafield) {
+                            if (datafield.getAttribute('tag') == '852') {
+                              var subfields = datafield.getElementsByTagName('subfield');
+                              angular.forEach(subfields, function(subfield) {
+                                if (subfield.getAttribute('code') == 'a') {
+                                  if (angular.isDefined(institution_codes[subfield.textContent])) {
+                                    institutions.push(institution_codes[subfield.textContent]);
+                                  }
+                                }
+                              });
                             }
                           });
                         }
-                      });
+                      }
                       if (institutions.length > 0) {
                         vm.found_records = true;
                         vm.summit_list = institutions.join(', ');
                       }
                       else {
-                        console.log('No institutions found in SRU query ' + query);
+                        console.log('No physical holdings found in SRU query ' + query);
                         vm.hide_form();
                       }
                     }
