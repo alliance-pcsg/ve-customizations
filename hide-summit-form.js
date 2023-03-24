@@ -129,18 +129,26 @@
                       var recordData = xmlDoc.getElementsByTagName('recordData');
                       for (var r = 0; r < recordData.length; r++) {
                         var record = recordData[r];
-                        // Check 006/00 for form of material
+                        // Check LDR/06 and 008/23 or 29 for form of item
+                        var leader = record.getElementsByTagName('leader')[0].textContent;
+                        const maps_and_visuals = ['e','f','g','k','o'];
+                        var form_position, form_of_item;
+                        if (maps_and_visuals.includes(leader.substr(6, 1))) {
+                          form_position = 29;
+                        }
+                        else {
+                          form_position = 23;
+                        }
                         var controlfields = record.getElementsByTagName('controlfield');
-                        var form_of_material;
                         for (var c = 0; c < controlfields.length; c++) {
                           var controlfield = controlfields[c];
-                          if (controlfield.getAttribute('tag') == '006') {
-                            form_of_material = controlfield.textContent.substring(0, 1);
+                          if (controlfield.getAttribute('tag') == '008') {
+                            form_of_item = controlfield.textContent.substr(form_position, 1);
                             break;
                           }
                         }
-                        // If computer file, skip this record
-                        if (form_of_material == 'm') {
+                        // If online format, skip this record
+                        if (form_of_item == 'o') {
                           continue;
                         }
                         // For other forms, get institution
