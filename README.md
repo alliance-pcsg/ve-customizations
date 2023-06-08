@@ -34,3 +34,6 @@ A demonstration of a custom action that opens a form in a modal window for submi
 
 ## [Add Label to Advanced Search Chevron](https://github.com/alliance-pcsg/ve-customizations/blob/main/chevron-label)
 This customization adds a label to the chevron button for advanced searches, controlled by a custom row in the Search Tile Labels code table.
+
+## [Add Pagination to Collection Discovery](https://github.com/alliance-pcsg/ve-customizations/blob/main/collection-pagination.js)
+This customization adds Next Page and Previous Page buttons to the bottom of Collection Discovery pages. Use CSS to style them and hide the default "Load More Items" button.
